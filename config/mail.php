@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => env('EMAIL_FROM', 'no-reply@erp.hitman.com.au'), 'name' => env('EMAIL_FROM_NAME', 'Hitman ERP')],
 
     /*
     |--------------------------------------------------------------------------
