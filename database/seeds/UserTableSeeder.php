@@ -15,6 +15,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@hitman.com.au',
             'password' => bcrypt('admin'),
+            'role_id' => '1'
         ]);
     }
 }

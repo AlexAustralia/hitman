@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -23,4 +23,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // Get User role
+    public function role()
+    {
+        return $this->belongsTo('App\Role', 'role_id', 'id');
+    }
+
+    // Check if user has a role
+    public function has_role($name)
+    {
+        if ($this->role->name == $name) return true;
+
+        return false;
+    }
 }

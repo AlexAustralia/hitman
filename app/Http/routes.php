@@ -30,6 +30,12 @@ Route::group(['middleware' => 'web'], function () {
             return view('app');
         });
 
+        // Here is the section restricted for all users apart from Administrator
+        Route::group(['middleware' => 'admin'], function () {
+            Route::get('tools', function () {
+                return 'TOOLS';
+            });
+        });
     });
 
     Route::auth();
