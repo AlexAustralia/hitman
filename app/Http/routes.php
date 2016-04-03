@@ -32,9 +32,9 @@ Route::group(['middleware' => 'web'], function () {
 
         // Here is the section restricted for all users apart from Administrator
         Route::group(['middleware' => 'admin'], function () {
-            Route::get('tools', function () {
-                return 'TOOLS';
-            });
+
+            // Tools section
+            Route::get('tools/change-password', 'ToolsController@get_change_password');
         });
     });
 
