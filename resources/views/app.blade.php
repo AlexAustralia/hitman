@@ -109,6 +109,10 @@
     <script src="{{ asset('theme/global/scripts/app.min.js') }}" type="text/javascript"></script>
     <!-- END THEME GLOBAL SCRIPTS -->
 
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    @yield('page-level-scripts')
+    <!-- END PAGE LEVEL SCRIPTS -->
+
     @section('page-scripts')
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
     <script src="{{ asset('theme/layouts/layout2/scripts/layout.min.js') }}" type="text/javascript"></script>

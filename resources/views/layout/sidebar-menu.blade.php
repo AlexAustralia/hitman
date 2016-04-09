@@ -45,90 +45,92 @@
                     <span class="arrow"></span>
                 </a>
             </li>
-            @if (Auth::user()->has_role('Administrator'))
-            <li class="nav-item ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-wrench"></i>
-                    <span class="title">Tools</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="tools/change-password" class="nav-link nav-toggle">
-                            <span class="title">Change Password</span>
+            @if (Auth::check())
+                @if (Auth::user()->has_role('Administrator'))
+                    <li class="nav-item {{ (Request::is('tools/*') ? 'active' : '') }}">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-wrench"></i>
+                            <span class="title">Tools</span>
+                            <span class="arrow"></span>
                         </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item {{ (Request::is('tools/change-password') ? 'active' : '') }}">
+                                <a href="/tools/change-password" class="nav-link nav-toggle">
+                                    <span class="title">Change User Password</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <span class="title">Application Settings</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <span class="title">Default Franchisee Settings</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                            <span class="title">Application Settings</span>
+                            <i class="icon-settings"></i>
+                            <span class="title">Edit Lookups</span>
+                            <span class="arrow"></span>
                         </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Suburbs & Streets</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Technician Types</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Licence Description</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Standard Jobs</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Standard Tasks</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Standard Job Tasks</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Chemicals</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Titles</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Job Sources</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="javascript:;" class="nav-link ">
+                                    <span class="title">Sections</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <span class="title">Default Franchisee Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item  ">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-settings"></i>
-                    <span class="title">Edit Lookups</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Suburbs & Streets</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Technician Types</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Licence Description</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Standard Jobs</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Standard Tasks</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Standard Job Tasks</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Chemicals</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Titles</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Job Sources</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  ">
-                        <a href="javascript:;" class="nav-link ">
-                            <span class="title">Sections</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                @endif
             @endif
 
         </ul>
