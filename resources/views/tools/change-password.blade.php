@@ -23,7 +23,7 @@
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>Change User Password
+                <i class="fa fa-user"></i>Change User Password
             </div>
 
             <div class="tools">

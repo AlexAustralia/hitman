@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Input;
 
 class ToolsController extends Controller
 {
+    // Users index page
+    public function users()
+    {
+        $users = User::all();
+
+        return view('tools.users', compact('users'));
+    }
+
     // Change User Password page
     public function get_change_password()
     {

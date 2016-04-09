@@ -54,6 +54,11 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
+                            <li class="nav-item {{ (Request::is('tools/users') ? 'active' : '') }}">
+                                <a href="/tools/users" class="nav-link nav-toggle">
+                                    <span class="title">Users</span>
+                                </a>
+                            </li>
                             <li class="nav-item {{ (Request::is('tools/change-password') ? 'active' : '') }}">
                                 <a href="/tools/change-password" class="nav-link nav-toggle">
                                     <span class="title">Change User Password</span>
