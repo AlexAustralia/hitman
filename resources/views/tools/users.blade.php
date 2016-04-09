@@ -16,7 +16,7 @@
 
 @section('actions')
         <li>
-            <a href="#">
+            <a href="/tools/users/create">
                 <i class="icon-plus"></i> Create New User</a>
         </li>
 @stop
@@ -40,7 +40,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Email / Login</th>
+                        <th>Email | Login</th>
                         <th>Name</th>
                         <th>Role</th>
                     </tr>

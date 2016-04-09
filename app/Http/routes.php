@@ -35,6 +35,8 @@ Route::group(['middleware' => 'web'], function () {
 
             // Tools section
             Route::get('tools/users', 'ToolsController@users');
+            Route::get('tools/users/create', 'ToolsController@create_user');
+            Route::post('tools/users/save', 'ToolsController@save_user');
 
             Route::get('tools/change-password', 'ToolsController@get_change_password');
             Route::post('tools/change-password', 'ToolsController@save_user');

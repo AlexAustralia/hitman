@@ -1,21 +1,20 @@
 @extends('app')
 
-@section('title') Change User Password | @parent @stop
+@section('title') Create User | @parent @stop
 
-@section('plugin-styles')
-    <link href="{{ asset('theme/global/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('theme/global/plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-@stop
-
-@section('page-name') Change User Password @stop
-@section('page-description') Manage User Passwords @stop
+@section('page-name') Create User @stop
+@section('page-description') Creating New User @stop
 @section('breadcrumb')
     <li>
         <span>Tools</span>
         <i class="fa fa-angle-right"></i>
     </li>
     <li>
-        <span>Change User Password</span>
+        <a href="/tools/users">Users</a>
+        <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+        <span>Create User</span>
     </li>
 @stop
 
@@ -23,7 +22,7 @@
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-user"></i>Change User Password
+                <i class="fa fa-user"></i>Create New User
             </div>
 
             <div class="tools">
@@ -36,7 +35,7 @@
 
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{ URL::to('tools/change-password') }}" class="form-horizontal" method="post" id="user_form">
+            <form action="{{ URL::to('tools/users/save') }}" class="form-horizontal" method="post" id="create_user_form">
                 <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 
                 <div class="form-body">
@@ -48,26 +47,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label">Select User
+                        <label class="col-md-3 control-label">Email | Login
                             <span class="required"> * </span>
                         </label>
 
                         <div class="col-md-4">
-                            <div class="input-group">
+                            <div class="input-group input-icon right">
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <select class="form-control select2me" name="id">
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->email }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="email" class="form-control input-circle-right" placeholder="Enter Unique Email" name="email">
+                                <i class="fa"></i>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label">New Password
+                        <label class="col-md-3 control-label">Full Name
                             <span class="required"> * </span>
                         </label>
 
@@ -76,7 +72,40 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="password" class="form-control input-circle-right" placeholder="Enter New Password" name="password">
+                                <input type="text" class="form-control input-circle-right" placeholder="Enter Full User Name" name="name">
+                                <i class="fa"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">User Role</label>
+
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                                <select class="form-control input-circle-right" name="role_id">
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" @if($role->id == 4) selected @endif >{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Password
+                            <span class="required"> * </span>
+                        </label>
+
+                        <div class="col-md-4">
+                            <div class="input-group input-icon right">
+                                <span class="input-group-addon input-circle-left">
+                                    <i class="fa fa-user"></i>
+                                </span>
+                                <input type="password" class="form-control input-circle-right" placeholder="Enter User Password" name="password">
                                 <i class="fa"></i>
                             </div>
                         </div>
@@ -92,7 +121,7 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="password" class="form-control input-circle-right" placeholder="Confirm New Password" name="confirm_password">
+                                <input type="password" class="form-control input-circle-right" placeholder="Confirm User Password" name="confirm_password">
                                 <i class="fa"></i>
                             </div>
                             <span class="help-block">Password should be at least 5 symbols</span>
@@ -100,13 +129,13 @@
                     </div>
 
                     <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-offset-3 col-md-9">
-                            <button type="submit" class="btn btn-circle green">Submit</button>
-                            <button type="button" class="btn btn-circle grey-salsa btn-outline" onclick="location.href='/'">Cancel</button>
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn btn-circle green">Submit</button>
+                                <button type="button" class="btn btn-circle grey-salsa btn-outline" onclick="location.href='/tools/users'">Cancel</button>
+                            </div>
                         </div>
                     </div>
-                </div>
             </form>
             <!-- END FORM-->
         </div>
@@ -114,7 +143,6 @@
 @endsection
 
 @section('plugin-scripts')
-    <script src="{{ asset('theme/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
 @stop

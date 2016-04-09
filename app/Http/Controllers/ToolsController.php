@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -15,14 +16,25 @@ class ToolsController extends Controller
     // Users index page
     public function users()
     {
+        // Get all users
         $users = User::all();
 
         return view('tools.users', compact('users'));
     }
 
+    // Create New User
+    public function create_user()
+    {
+        // Get all user roles
+        $roles = Role::all();
+
+        return view('tools.create-user', compact('roles'));
+    }
+
     // Change User Password page
     public function get_change_password()
     {
+        // Get all users
         $users = User::all();
 
         return view('tools.change-password', compact('users'));
@@ -50,6 +62,7 @@ class ToolsController extends Controller
             // Save new user
             $this->validate($request, [
                 'email' => 'required|unique:users',
+                'name' => 'required'
             ]);
 
             $user = new User();
@@ -57,13 +70,23 @@ class ToolsController extends Controller
 
         // Compare passwords, if they coincide, save, otherwise throw the error
         if ($input['password'] == $input['confirm_password']){
+
+            if (isset($input['name'])) $user->name = $input['name'];
+            if (isset($input['email'])) $user->email = $input['email'];
+            if (isset($input['role_id'])) $user->role_id = $input['role_id'];
             $user->password = Hash::make($input['password']);
+
             $user->save();
 
-            return redirect('tools/change-password')->with('success', 'User data has been saved successfully');
+            return redirect('tools/users')->with('success', 'User has been saved/updated successfully');
         }
         else {
-            return redirect('tools/change-password')->with('error', 'Entered passwords do not coincide');
+            if (isset($input['id'])) {
+                return redirect('tools/change-password')->with('error', 'Entered passwords do not coincide');
+            }
+            else {
+                return redirect('tools/users/create')->with('error', 'Entered passwords do not coincide');
+            }
         }
     }
 }
