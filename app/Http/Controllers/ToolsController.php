@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FranchiseeSet;
 use App\Role;
 use App\User;
 use GuzzleHttp\Exception\RequestException;
@@ -45,7 +46,7 @@ class ToolsController extends Controller
     }
 
     // Change User Password page
-    public function get_change_password()
+    public function change_password()
     {
         // Get all users
         $users = User::all();
@@ -77,12 +78,11 @@ class ToolsController extends Controller
             ]);
         }
 
-        if (isset($input['id'])){
+        if (isset($input['id'])) {
 
             // User exists
             $user = User::find($input['id']);
-        }
-        else {
+        } else {
 
             // New user
             $this->validate($request, [
@@ -106,5 +106,29 @@ class ToolsController extends Controller
         }
 
         return redirect('tools/users')->with('success', 'User has been saved/updated successfully');
+    }
+
+    // Default Franchisee Settings page
+    public function get_franchisee_settings()
+    {
+        // Get all settrings
+        $settings = FranchiseeSet::all();
+
+        return view('tools.franchisee-settings', compact('settings'));
+    }
+
+    // Save default franchisee settings
+    public function post_franchisee_settings()
+    {
+        $input = Input::all();
+
+        foreach ($input['value'] as $key => $value){
+            $settings = FranchiseeSet::find($key + 1);
+            $settings->value = $value;
+
+            $settings->save();
+        }
+
+        return redirect('/')->with('success', 'Default Franchisee Settings has been updated successfully');
     }
 }

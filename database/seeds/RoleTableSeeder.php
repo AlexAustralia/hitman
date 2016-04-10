@@ -6,6 +6,7 @@ class RoleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Seed User Roles
      *
      * @return void
      */

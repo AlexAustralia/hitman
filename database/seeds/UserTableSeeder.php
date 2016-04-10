@@ -6,6 +6,7 @@ class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Seed Administrator account
      *
      * @return void
      */

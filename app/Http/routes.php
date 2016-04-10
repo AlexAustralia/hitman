@@ -39,7 +39,12 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('tools/users/create', 'ToolsController@create_user');
             Route::post('tools/users/save', 'ToolsController@save_user');
             Route::get('tools/users/edit/{id}', 'ToolsController@edit_user');
-            Route::get('tools/change-password', 'ToolsController@get_change_password');
+            Route::get('tools/change-password', 'ToolsController@change_password');
+
+            // Franchisee Settings module
+            Route::get('tools/franchisee-settings', 'ToolsController@get_franchisee_settings');
+            Route::post('tools/franchisee-settings', 'ToolsController@post_franchisee_settings');
+
         });
     });
 

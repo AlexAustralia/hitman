@@ -69,8 +69,8 @@
                                     <span class="title">Application Settings</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link nav-toggle">
+                            <li class="nav-item  {{ (Request::is('tools/franchisee-settings') ? 'active' : '') }}">
+                                <a href="/tools/franchisee-settings" class="nav-link nav-toggle">
                                     <span class="title">Default Franchisee Settings</span>
                                 </a>
                             </li>
