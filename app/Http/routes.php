@@ -34,12 +34,12 @@ Route::group(['middleware' => 'web'], function () {
         Route::group(['middleware' => 'admin'], function () {
 
             // Tools section
+            // Users module
             Route::get('tools/users', 'ToolsController@users');
             Route::get('tools/users/create', 'ToolsController@create_user');
             Route::post('tools/users/save', 'ToolsController@save_user');
-
+            Route::get('tools/users/edit/{id}', 'ToolsController@edit_user');
             Route::get('tools/change-password', 'ToolsController@get_change_password');
-            Route::post('tools/change-password', 'ToolsController@save_user');
         });
     });
 

@@ -43,6 +43,7 @@
                         <th>Email | Login</th>
                         <th>Name</th>
                         <th>Role</th>
+                        <th w></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,11 @@
                                         ">{{ $user->role->name }}
                                 </span>
                             <td>
+                            <td>
+                                <a href="/tools/users/edit/{{ $user->id }}" class="btn btn-outline btn-circle green btn-sm purple">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                      </tbody>

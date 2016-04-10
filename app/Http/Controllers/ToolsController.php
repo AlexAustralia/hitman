@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
 
 class ToolsController extends Controller
 {
@@ -28,7 +31,17 @@ class ToolsController extends Controller
         // Get all user roles
         $roles = Role::all();
 
-        return view('tools.create-user', compact('roles'));
+        return view('tools.edit-user', compact('roles'));
+    }
+
+    // Edit User
+    public function edit_user($id)
+    {
+        // Get all user roles and the user
+        $roles = Role::all();
+        $user = User::find($id);
+
+        return view('tools.edit-user', compact('user', 'roles'));
     }
 
     // Change User Password page
@@ -46,47 +59,52 @@ class ToolsController extends Controller
         // Get form data
         $input = Input::all();
 
-        // Validate form
-        $this->validate($request, [
-            'password' => 'required',
-            'confirm_password' => 'required'
-        ]);
+        // If password should be entered, check if it is entered
+        if (isset($input['password'])) {
+            $this->validate($request, [
+                'password' => 'required',
+                'confirm_password' => 'required'
+            ]);
+
+            // Compare passwords, if they do not coincide, throw the error
+            if ($input['password'] != $input['confirm_password']) return redirect(URL::previous())->with('error', 'Entered passwords do not coincide');
+        }
+
+        // If name should be entered, check if it is entered
+        if (isset($input['name'])) {
+            $this->validate($request, [
+                'name' => 'required'
+            ]);
+        }
 
         if (isset($input['id'])){
 
-            // Save edited user
+            // User exists
             $user = User::find($input['id']);
         }
         else {
 
-            // Save new user
+            // New user
             $this->validate($request, [
                 'email' => 'required|unique:users',
-                'name' => 'required'
             ]);
 
             $user = new User();
         }
 
-        // Compare passwords, if they coincide, save, otherwise throw the error
-        if ($input['password'] == $input['confirm_password']){
+        // Save user data
+        if (isset($input['name'])) $user->name = $input['name'];
+        if (isset($input['email'])) $user->email = $input['email'];
+        if (isset($input['role_id'])) $user->role_id = $input['role_id'];
+        if (isset($input['password'])) $user->password = Hash::make($input['password']);
 
-            if (isset($input['name'])) $user->name = $input['name'];
-            if (isset($input['email'])) $user->email = $input['email'];
-            if (isset($input['role_id'])) $user->role_id = $input['role_id'];
-            $user->password = Hash::make($input['password']);
-
+        // Try to save user. If we catch exception then this email is already used
+        try {
             $user->save();
+        } catch (QueryException $e) {
+            return redirect(URL::previous())->with('error', 'Entered Email | Login is already used');
+        }
 
-            return redirect('tools/users')->with('success', 'User has been saved/updated successfully');
-        }
-        else {
-            if (isset($input['id'])) {
-                return redirect('tools/change-password')->with('error', 'Entered passwords do not coincide');
-            }
-            else {
-                return redirect('tools/users/create')->with('error', 'Entered passwords do not coincide');
-            }
-        }
+        return redirect('tools/users')->with('success', 'User has been saved/updated successfully');
     }
 }

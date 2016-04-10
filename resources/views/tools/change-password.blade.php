@@ -36,7 +36,7 @@
 
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="{{ URL::to('tools/change-password') }}" class="form-horizontal" method="post" id="user_form">
+            <form action="{{ URL::to('tools/users/save') }}" class="form-horizontal" method="post" id="user_form">
                 <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 
                 <div class="form-body">
