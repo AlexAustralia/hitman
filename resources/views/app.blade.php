@@ -11,6 +11,7 @@
     <title>@section('title') Hitman ERP @show</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="_token" content="{{ csrf_token() }}"/>
 
     @section('meta_description')<meta content="" name="description" />@show
     @section('meta_author')<meta content="" name="author" />@show

@@ -76,16 +76,16 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item  ">
+                    <li class="nav-item  {{ (Request::is('edit-lookups/*') ? 'active' : '') }}">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="icon-settings"></i>
                             <span class="title">Edit Lookups</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
-                                    <span class="title">Suburbs & Streets</span>
+                            <li class="nav-item  {{ (Request::is('edit-lookups/suburbs') ? 'active' : '') }}">
+                                <a href="/edit-lookups/suburbs" class="nav-link ">
+                                    <span class="title">Suburbs</span>
                                 </a>
                             </li>
                             <li class="nav-item  ">

@@ -43,7 +43,7 @@
                         <th>Email | Login</th>
                         <th>Name</th>
                         <th>Role</th>
-                        <th w></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>

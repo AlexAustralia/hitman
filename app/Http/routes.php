@@ -45,6 +45,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('tools/franchisee-settings', 'ToolsController@get_franchisee_settings');
             Route::post('tools/franchisee-settings', 'ToolsController@post_franchisee_settings');
 
+            // Edit Lookups section
+            // Suburbs module
+            Route::get('edit-lookups/suburbs', 'EditLookupsController@suburbs');
+            Route::post('edit-lookups/suburbs/save', 'EditLookupsController@ajax_save_suburbs');
+            Route::post('edit-lookups/suburbs/delete', 'EditLookupsController@ajax_delete_suburbs');
         });
     });
 
