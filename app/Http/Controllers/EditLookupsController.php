@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LicenceDescription;
 use App\Suburb;
 use App\TechnicianType;
 use Illuminate\Http\Request;
@@ -130,6 +131,68 @@ class EditLookupsController extends Controller
         // Delete Technician Type
         try {
             $technician_type->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Licence Descriptions
+    public function licence_description()
+    {
+        // Get Licence Descriptions
+        $licence_descriptions = LicenceDescription::all();
+
+        return view('lookups.licence-descriptions', compact('licence_descriptions'));
+    }
+
+    // Ajax handler for saving licence description record
+    public function ajax_save_licence_description()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Licence Description
+        if (empty($index)) {
+            // Create new Licence Description, if this type is already used, throw the error
+            try {
+                LicenceDescription::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Technician Type
+            $licence_description = LicenceDescription::where('name', $index)->first();
+
+            // Update Licence Description, if this type is already used, throw the error
+            try {
+                $licence_description->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Licence Description record
+    public function ajax_delete_licence_description()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Licence Description
+        $licence_description = LicenceDescription::where('name', $index)->first();
+
+        // Delete Licence Description
+        try {
+            $licence_description->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }

@@ -93,8 +93,8 @@
                                     <span class="title">Technician Types</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
+                            <li class="nav-item  {{ (Request::is('edit-lookups/licence-description') ? 'active' : '') }}">
+                                <a href="/edit-lookups/licence-description" class="nav-link ">
                                     <span class="title">Licence Description</span>
                                 </a>
                             </li>

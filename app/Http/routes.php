@@ -55,6 +55,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('edit-lookups/technician-types', 'EditLookupsController@technician_types');
             Route::post('edit-lookups/technician-types/save', 'EditLookupsController@ajax_save_technician_types');
             Route::post('edit-lookups/technician-types/delete', 'EditLookupsController@ajax_delete_technician_types');
+
+            // Licence Description module
+            Route::get('edit-lookups/licence-description', 'EditLookupsController@licence_description');
+            Route::post('edit-lookups/licence-description/save', 'EditLookupsController@ajax_save_licence_description');
+            Route::post('edit-lookups/licence-description/delete', 'EditLookupsController@ajax_delete_licence_description');
         });
     });
 
