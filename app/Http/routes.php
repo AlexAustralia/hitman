@@ -50,6 +50,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('edit-lookups/suburbs', 'EditLookupsController@suburbs');
             Route::post('edit-lookups/suburbs/save', 'EditLookupsController@ajax_save_suburbs');
             Route::post('edit-lookups/suburbs/delete', 'EditLookupsController@ajax_delete_suburbs');
+
+            // Technician Types module
+            Route::get('edit-lookups/technician-types', 'EditLookupsController@technician_types');
+            Route::post('edit-lookups/technician-types/save', 'EditLookupsController@ajax_save_technician_types');
+            Route::post('edit-lookups/technician-types/delete', 'EditLookupsController@ajax_delete_technician_types');
         });
     });
 

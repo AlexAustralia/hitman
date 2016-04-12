@@ -88,8 +88,8 @@
                                     <span class="title">Suburbs</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
+                            <li class="nav-item  {{ (Request::is('edit-lookups/technician-types') ? 'active' : '') }}">
+                                <a href="/edit-lookups/technician-types" class="nav-link ">
                                     <span class="title">Technician Types</span>
                                 </a>
                             </li>
