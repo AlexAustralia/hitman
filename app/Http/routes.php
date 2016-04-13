@@ -33,7 +33,10 @@ Route::group(['middleware' => 'web'], function () {
         // Here is the section restricted for all users apart from Administrator
         Route::group(['middleware' => 'admin'], function () {
 
-            // Tools section
+            /*
+             *  Tools section
+             */
+
             // Users module
             Route::get('tools/users', 'ToolsController@users');
             Route::get('tools/users/create', 'ToolsController@create_user');
@@ -45,7 +48,10 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('tools/franchisee-settings', 'ToolsController@get_franchisee_settings');
             Route::post('tools/franchisee-settings', 'ToolsController@post_franchisee_settings');
 
-            // Edit Lookups section
+            /*
+             *  Edit Lookups section
+             */
+
             // Suburbs module
             Route::get('edit-lookups/suburbs', 'EditLookupsController@suburbs');
             Route::post('edit-lookups/suburbs/save', 'EditLookupsController@ajax_save_suburbs');
@@ -60,6 +66,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('edit-lookups/licence-description', 'EditLookupsController@licence_description');
             Route::post('edit-lookups/licence-description/save', 'EditLookupsController@ajax_save_licence_description');
             Route::post('edit-lookups/licence-description/delete', 'EditLookupsController@ajax_delete_licence_description');
+
+            // Standard Jobs module
+            Route::get('edit-lookups/standard-jobs', 'EditLookupsController@standard_jobs');
+            Route::post('edit-lookups/standard-jobs/save', 'EditLookupsController@ajax_save_standard_jobs');
+            Route::post('edit-lookups/standard-jobs/delete', 'EditLookupsController@ajax_delete_standard_jobs');
         });
     });
 

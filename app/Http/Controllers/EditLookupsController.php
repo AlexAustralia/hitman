@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\LicenceDescription;
+use App\StandardJob;
 use App\Suburb;
 use App\TechnicianType;
 use Illuminate\Http\Request;
@@ -165,7 +166,7 @@ class EditLookupsController extends Controller
             }
         }
         else {
-            // Find edited Technician Type
+            // Find edited Licence Description
             $licence_description = LicenceDescription::where('name', $index)->first();
 
             // Update Licence Description, if this type is already used, throw the error
@@ -199,4 +200,67 @@ class EditLookupsController extends Controller
 
         return json_encode('OK');
     }
+
+    // List of Standard Jobs
+    public function standard_jobs()
+    {
+        // Get Standard Jobs
+        $standard_jobs = StandardJob::all();
+
+        return view('lookups.standard-jobs', compact('standard_jobs'));
+    }
+
+    // Ajax handler for saving standard jobs record
+    public function ajax_save_standard_jobs()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Licence Description
+        if (empty($index)) {
+            // Create new Standard Job, if this type is already used, throw the error
+            try {
+                StandardJob::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Standard Job
+            $standard_job = StandardJob::where('acronym', $index)->first();
+
+            // Update Standard Job, if this type is already used, throw the error
+            try {
+                $standard_job->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Standard Job record
+    public function ajax_delete_standard_jobs()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Standard Job
+        $standard_job = StandardJob::where('acronym', $index)->first();
+
+        // Delete Standard Job
+        try {
+            $standard_job->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
 }

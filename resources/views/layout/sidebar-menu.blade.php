@@ -98,8 +98,8 @@
                                     <span class="title">Licence Description</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
+                            <li class="nav-item {{ (Request::is('edit-lookups/standard-jobs') ? 'active' : '') }}">
+                                <a href="/edit-lookups/standard-jobs" class="nav-link ">
                                     <span class="title">Standard Jobs</span>
                                 </a>
                             </li>
