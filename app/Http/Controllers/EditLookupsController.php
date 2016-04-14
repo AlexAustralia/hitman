@@ -8,6 +8,7 @@ use App\StandardJob;
 use App\StandardTask;
 use App\Suburb;
 use App\TechnicianType;
+use App\Title;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -382,6 +383,68 @@ class EditLookupsController extends Controller
         // Delete Chemical
         try {
             $chemical->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Titles
+    public function titles()
+    {
+        // Get Titles
+        $titles = Title::all();
+
+        return view('lookups.titles', compact('titles'));
+    }
+
+    // Ajax handler for saving titles record
+    public function ajax_save_titles()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Title
+        if (empty($index)) {
+            // Create new Title, if this type is already used, throw the error
+            try {
+                Title::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Title
+            $title = Title::where('name', $index)->first();
+
+            // Update Title, if this type is already used, throw the error
+            try {
+                $title->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Title record
+    public function ajax_delete_titles()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Title
+        $title = Title::where('name', $index)->first();
+
+        // Delete Title
+        try {
+            $title->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }

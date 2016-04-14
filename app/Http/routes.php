@@ -81,6 +81,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('edit-lookups/chemicals', 'EditLookupsController@chemicals');
             Route::post('edit-lookups/chemicals/save', 'EditLookupsController@ajax_save_chemicals');
             Route::post('edit-lookups/chemicals/delete', 'EditLookupsController@ajax_delete_chemicals');
+
+            // Titles module
+            Route::get('edit-lookups/titles', 'EditLookupsController@titles');
+            Route::post('edit-lookups/titles/save', 'EditLookupsController@ajax_save_titles');
+            Route::post('edit-lookups/titles/delete', 'EditLookupsController@ajax_delete_titles');
         });
     });
 

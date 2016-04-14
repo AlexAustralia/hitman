@@ -15,6 +15,7 @@ return array(
     'CreateStandardTasksTable' => $baseDir . '/database/migrations/2016_04_14_202210_create_standard_tasks_table.php',
     'CreateSuburbsTable' => $baseDir . '/database/migrations/2016_04_10_181856_create_suburbs_table.php',
     'CreateTechnicianTypesTable' => $baseDir . '/database/migrations/2016_04_12_203657_create_technician_types_table.php',
+    'CreateTitlesTable' => $baseDir . '/database/migrations/2016_04_14_211626_create_titles_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

@@ -118,8 +118,8 @@
                                     <span class="title">Chemicals</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
+                            <li class="nav-item {{ (Request::is('edit-lookups/titles') ? 'active' : '') }}">
+                                <a href="/edit-lookups/titles" class="nav-link ">
                                     <span class="title">Titles</span>
                                 </a>
                             </li>
