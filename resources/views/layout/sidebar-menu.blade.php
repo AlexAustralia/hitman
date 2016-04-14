@@ -123,8 +123,8 @@
                                     <span class="title">Titles</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
+                            <li class="nav-item {{ (Request::is('edit-lookups/job-sources') ? 'active' : '') }}">
+                                <a href="/edit-lookups/job-sources" class="nav-link ">
                                     <span class="title">Job Sources</span>
                                 </a>
                             </li>

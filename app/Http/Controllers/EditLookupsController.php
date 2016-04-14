@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chemical;
+use App\JobSource;
 use App\LicenceDescription;
 use App\StandardJob;
 use App\StandardTask;
@@ -445,6 +446,68 @@ class EditLookupsController extends Controller
         // Delete Title
         try {
             $title->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Job Sources
+    public function job_sources()
+    {
+        // Get Job Sources
+        $job_sources = JobSource::all();
+
+        return view('lookups.job-sources', compact('job_sources'));
+    }
+
+    // Ajax handler for saving job sources record
+    public function ajax_save_job_sources()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Job Sources
+        if (empty($index)) {
+            // Create new Job Source, if this type is already used, throw the error
+            try {
+                JobSource::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Job Source
+            $job_source = JobSource::where('name', $index)->first();
+
+            // Update Job Source, if this type is already used, throw the error
+            try {
+                $job_source->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Job Source record
+    public function ajax_delete_job_sources()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Job Source
+        $job_source = JobSource::where('name', $index)->first();
+
+        // Delete Job Source
+        try {
+            $job_source->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }
