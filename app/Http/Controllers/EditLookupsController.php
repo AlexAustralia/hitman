@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chemical;
 use App\LicenceDescription;
 use App\StandardJob;
 use App\StandardTask;
@@ -319,6 +320,68 @@ class EditLookupsController extends Controller
         // Delete Standard Task
         try {
             $standard_task->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Chemicals
+    public function chemicals()
+    {
+        // Get Chemicals
+        $chemicals = Chemical::all();
+
+        return view('lookups.chemicals', compact('chemicals'));
+    }
+
+    // Ajax handler for saving chemicals record
+    public function ajax_save_chemicals()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Chemical
+        if (empty($index)) {
+            // Create new Chemical, if this type is already used, throw the error
+            try {
+                Chemical::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Chemical
+            $chemical = Chemical::where('name', $index)->first();
+
+            // Update Chemical, if this type is already used, throw the error
+            try {
+                $chemical->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Chemical record
+    public function ajax_delete_chemicals()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Chemical
+        $chemical = Chemical::where('name', $index)->first();
+
+        // Delete Chemical
+        try {
+            $chemical->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }

@@ -113,8 +113,8 @@
                                     <span class="title">Standard Job Tasks</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link ">
+                            <li class="nav-item {{ (Request::is('edit-lookups/chemicals') ? 'active' : '') }}">
+                                <a href="/edit-lookups/chemicals" class="nav-link ">
                                     <span class="title">Chemicals</span>
                                 </a>
                             </li>
