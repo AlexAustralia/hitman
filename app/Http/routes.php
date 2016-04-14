@@ -71,6 +71,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('edit-lookups/standard-jobs', 'EditLookupsController@standard_jobs');
             Route::post('edit-lookups/standard-jobs/save', 'EditLookupsController@ajax_save_standard_jobs');
             Route::post('edit-lookups/standard-jobs/delete', 'EditLookupsController@ajax_delete_standard_jobs');
+
+            // Standard Tasks module
+            Route::get('edit-lookups/standard-tasks', 'EditLookupsController@standard_tasks');
+            Route::post('edit-lookups/standard-tasks/save', 'EditLookupsController@ajax_save_standard_tasks');
+            Route::post('edit-lookups/standard-tasks/delete', 'EditLookupsController@ajax_delete_standard_tasks');
         });
     });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\LicenceDescription;
 use App\StandardJob;
+use App\StandardTask;
 use App\Suburb;
 use App\TechnicianType;
 use Illuminate\Http\Request;
@@ -218,7 +219,7 @@ class EditLookupsController extends Controller
 
         $index = $input['index'];
 
-        // Save Licence Description
+        // Save Standard Jobs
         if (empty($index)) {
             // Create new Standard Job, if this type is already used, throw the error
             try {
@@ -263,4 +264,65 @@ class EditLookupsController extends Controller
         return json_encode('OK');
     }
 
+    // List of Standard Tasks
+    public function standard_tasks()
+    {
+        // Get Standard Tasks
+        $standard_tasks = StandardTask::all();
+
+        return view('lookups.standard-tasks', compact('standard_tasks'));
+    }
+
+    // Ajax handler for saving standard tasks record
+    public function ajax_save_standard_tasks()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Standard Tasks
+        if (empty($index)) {
+            // Create new Standard Task, if this type is already used, throw the error
+            try {
+                StandardTask::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Standard Task
+            $standard_task = StandardTask::where('name', $index)->first();
+
+            // Update Standard Task, if this type is already used, throw the error
+            try {
+                $standard_task->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Standard Task record
+    public function ajax_delete_standard_tasks()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Standard Task
+        $standard_task = StandardTask::where('name', $index)->first();
+
+        // Delete Standard Task
+        try {
+            $standard_task->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
 }
