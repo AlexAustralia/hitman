@@ -15,6 +15,7 @@ return array(
     'CreateSectionsTable' => $baseDir . '/database/migrations/2016_04_16_200036_create_sections_table.php',
     'CreateStandardJobsTable' => $baseDir . '/database/migrations/2016_04_13_111416_create_standard_jobs_table.php',
     'CreateStandardTasksTable' => $baseDir . '/database/migrations/2016_04_14_202210_create_standard_tasks_table.php',
+    'CreateStreetsTable' => $baseDir . '/database/migrations/2016_04_17_085754_create_streets_table.php',
     'CreateSuburbsTable' => $baseDir . '/database/migrations/2016_04_10_181856_create_suburbs_table.php',
     'CreateTechnicianTypesTable' => $baseDir . '/database/migrations/2016_04_12_203657_create_technician_types_table.php',
     'CreateTitlesTable' => $baseDir . '/database/migrations/2016_04_14_211626_create_titles_table.php',

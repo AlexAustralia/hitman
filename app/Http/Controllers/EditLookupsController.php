@@ -8,6 +8,7 @@ use App\LicenceDescription;
 use App\Section;
 use App\StandardJob;
 use App\StandardTask;
+use App\Street;
 use App\Suburb;
 use App\TechnicianType;
 use App\Title;
@@ -75,6 +76,83 @@ class EditLookupsController extends Controller
         // Delete Suburb
         try {
             $suburb->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Streets
+    public function streets()
+    {
+        // Get Suburbs
+        $suburbs = Suburb::all();
+
+        return view('lookups.streets', compact('suburbs'));
+    }
+
+    // Ajax handler for uploading Streets of particular Suburb
+    public function ajax_upload_streets()
+    {
+        // Get parameters
+        $suburb_id = Input::get('suburb');
+
+        // Get Streets
+        $streets = Street::select('name')->where('suburb_id', $suburb_id)->get();
+
+        return json_encode($streets);
+    }
+
+    // Ajax handler for saving streets record
+    public function ajax_save_streets()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+        $suburb_id = $input['suburb_id'];
+
+        // Save Street
+        if (empty($index)) {
+            // Create new Street
+            try {
+                Street::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Street
+            $street = Street::where('name', $index)->where('suburb_id', $suburb_id)->first();
+
+            // Update Street
+            try {
+                $street->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting street record
+    public function ajax_delete_streets()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+        $suburb_id = $input['suburb_id'];
+
+
+        // Find deleting Street
+        $street = Street::where('name', $index)->where('suburb_id', $suburb_id)->first();
+
+        // Delete Street
+        try {
+            $street->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }
