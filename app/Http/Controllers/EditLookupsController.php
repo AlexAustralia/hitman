@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Chemical;
 use App\JobSource;
 use App\LicenceDescription;
+use App\Section;
 use App\StandardJob;
 use App\StandardTask;
 use App\Suburb;
@@ -508,6 +509,68 @@ class EditLookupsController extends Controller
         // Delete Job Source
         try {
             $job_source->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Section
+    public function sections()
+    {
+        // Get Sections
+        $sections = Section::all();
+
+        return view('lookups.sections', compact('sections'));
+    }
+
+    // Ajax handler for saving section record
+    public function ajax_save_sections()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Save Sections
+        if (empty($index)) {
+            // Create new Section, if this type is already used, throw the error
+            try {
+                Section::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Section
+            $section = Section::where('name', $index)->first();
+
+            // Update Section, if this type is already used, throw the error
+            try {
+                $section->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting Section record
+    public function ajax_delete_sections()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+
+        // Find deleting Section
+        $section = Section::where('name', $index)->first();
+
+        // Delete Section
+        try {
+            $section->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }

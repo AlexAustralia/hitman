@@ -91,6 +91,11 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('edit-lookups/job-sources', 'EditLookupsController@job_sources');
             Route::post('edit-lookups/job-sources/save', 'EditLookupsController@ajax_save_job_sources');
             Route::post('edit-lookups/job-sources/delete', 'EditLookupsController@ajax_delete_job_sources');
+
+            // Sections module
+            Route::get('edit-lookups/sections', 'EditLookupsController@sections');
+            Route::post('edit-lookups/sections/save', 'EditLookupsController@ajax_save_sections');
+            Route::post('edit-lookups/sections/delete', 'EditLookupsController@ajax_delete_sections');
         });
     });
 
