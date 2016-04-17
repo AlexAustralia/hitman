@@ -7,6 +7,7 @@ use App\JobSource;
 use App\LicenceDescription;
 use App\Section;
 use App\StandardJob;
+use App\StandardJobTask;
 use App\StandardTask;
 use App\Street;
 use App\Suburb;
@@ -145,7 +146,6 @@ class EditLookupsController extends Controller
 
         $index = $input['index'];
         $suburb_id = $input['suburb_id'];
-
 
         // Find deleting Street
         $street = Street::where('name', $index)->where('suburb_id', $suburb_id)->first();
@@ -401,6 +401,82 @@ class EditLookupsController extends Controller
         // Delete Standard Task
         try {
             $standard_task->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Standard Job Tasks
+    public function standard_job_tasks()
+    {
+        // Get Standard Jobs
+        $standard_jobs = StandardJob::all();
+
+        return view('lookups.standard-job-tasks', compact('standard_jobs'));
+    }
+
+    // Ajax handler for uploading Streets of particular Suburb
+    public function ajax_upload_standard_job_tasks()
+    {
+        // Get parameters
+        $standard_job_id = Input::get('standard_job_id');
+
+        // Get Standard Job Tasks
+        $standard_job_tasks = StandardJobTask::select('name')->where('standard_job_id', $standard_job_id)->get();
+
+        return json_encode($standard_job_tasks);
+    }
+
+    // Ajax handler for saving standard job tasks record
+    public function ajax_save_standard_job_tasks()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+        $standard_job_id = $input['standard_job_id'];
+
+        // Save Standard Job Task
+        if (empty($index)) {
+            // Create new Standard Job Task
+            try {
+                StandardJobTask::create($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Standard Job Task
+            $standard_job_taks = StandardJobTask::where('name', $index)->where('standard_job_id', $standard_job_id)->first();
+
+            // Update Standard Job Task
+            try {
+                $standard_job_taks->update($input);
+            } catch (QueryException $e) {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting standard job task record
+    public function ajax_delete_standard_job_tasks  ()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+        $standard_job_id = $input['standard_job_id'];
+
+        // Find deleting Standard Job Task
+        $standard_job_task = StandardJobTask::where('name', $index)->where('standard_job_id', $standard_job_id)->first();
+
+        // Delete Standard Job Tasks
+        try {
+            $standard_job_task->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }

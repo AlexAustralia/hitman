@@ -13,6 +13,7 @@ return array(
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateRolesTable' => $baseDir . '/database/migrations/2016_04_03_184440_create_roles_table.php',
     'CreateSectionsTable' => $baseDir . '/database/migrations/2016_04_16_200036_create_sections_table.php',
+    'CreateStandardJobTasksTable' => $baseDir . '/database/migrations/2016_04_17_171128_create_standard_job_tasks_table.php',
     'CreateStandardJobsTable' => $baseDir . '/database/migrations/2016_04_13_111416_create_standard_jobs_table.php',
     'CreateStandardTasksTable' => $baseDir . '/database/migrations/2016_04_14_202210_create_standard_tasks_table.php',
     'CreateStreetsTable' => $baseDir . '/database/migrations/2016_04_17_085754_create_streets_table.php',
