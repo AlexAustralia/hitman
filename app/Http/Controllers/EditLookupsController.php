@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Chemical;
 use App\JobSource;
 use App\LicenceDescription;
+use App\NeighbouringSuburb;
 use App\Section;
 use App\StandardJob;
 use App\StandardJobTask;
@@ -77,6 +78,94 @@ class EditLookupsController extends Controller
         // Delete Suburb
         try {
             $suburb->delete();
+        } catch (QueryException $e) {
+            return json_encode('Error');
+        }
+
+        return json_encode('OK');
+    }
+
+    // List of Neighbouring Suburbs
+    public function neighbouring_suburbs()
+    {
+        // Get Suburbs
+        $suburbs = Suburb::all();
+
+        return view('lookups.neighbouring-suburbs', compact('suburbs'));
+    }
+
+    // Ajax handler for uploading Neighbouring Suburbs of particular Suburb
+    public function ajax_upload_neighbouring_suburbs()
+    {
+        // Get parameters
+        $suburb_id = Input::get('suburb_id');
+
+        // Get Neighbouring Suburbs
+        $neighbouring_suburbs = NeighbouringSuburb::select('suburbs.locality')
+            ->join('suburbs', 'suburbs.id', '=', 'neighbouring_suburbs.neighbour_suburb_id')
+            ->where('suburb_id', $suburb_id)->get();
+
+        // Get list of all suburbs apart from current one
+        $suburbs = Suburb::select('locality')->where('id', '<>', $suburb_id)->get();
+
+        return json_encode(['neighbour' => $neighbouring_suburbs, 'suburbs' => $suburbs]);
+    }
+
+    // Ajax handler for saving neighbouring suburbs record
+    public function ajax_save_neighbouring_suburbs()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+        $suburb_id = $input['suburb_id'];
+        $name = $input['name'];
+
+        $neighbour_suburb_id = Suburb::select('id')->where('locality', $name)->first()->id;
+
+        // Save Neighbouring Suburb
+        if (empty($index)) {
+            // Create new Neighbouring Suburb
+            $records = NeighbouringSuburb::select('id')->where('suburb_id', $suburb_id)->where('neighbour_suburb_id', $neighbour_suburb_id)->get();
+            if (count($records) == 0) {
+                NeighbouringSuburb::create(['suburb_id' => $suburb_id, 'neighbour_suburb_id' => $neighbour_suburb_id]);
+            } else {
+                return json_encode('Error');
+            }
+        }
+        else {
+            // Find edited Neighbouring Suburb
+            $index_id = Suburb::select('id')->where('locality', $index)->first()->id;
+            $neighbouring_suburb = NeighbouringSuburb::where('neighbour_suburb_id', $index_id)->where('suburb_id', $suburb_id)->first();
+
+            // Update Neighbouring Suburb
+            $records = NeighbouringSuburb::select('id')->where('suburb_id', $suburb_id)->where('neighbour_suburb_id', $neighbour_suburb_id)->get();
+            if (count($records) == 0) {
+                $neighbouring_suburb->update(['neighbour_suburb_id' => $neighbour_suburb_id]);
+            } else {
+                return json_encode('Error');
+            }
+        }
+
+        return json_encode('OK');
+    }
+
+    // Ajax handler for deleting neighbouring suburb record
+    public function ajax_delete_neighbouring_suburbs()
+    {
+        // Get parameters
+        $input = Input::all();
+
+        $index = $input['index'];
+        $suburb_id = $input['suburb_id'];
+        $index_id = Suburb::select('id')->where('locality', $index)->first()->id;
+
+        // Find deleting Neighbouring Suburb
+        $neighbouring_suburb = NeighbouringSuburb::where('neighbour_suburb_id', $index_id)->where('suburb_id', $suburb_id)->first();
+
+        // Delete Street
+        try {
+            $neighbouring_suburb->delete();
         } catch (QueryException $e) {
             return json_encode('Error');
         }

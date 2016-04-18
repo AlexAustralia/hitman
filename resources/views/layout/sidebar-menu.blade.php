@@ -88,6 +88,11 @@
                                     <span class="title">Suburbs</span>
                                 </a>
                             </li>
+                            <li class="nav-item  {{ (Request::is('edit-lookups/neighbouring-suburbs') ? 'active' : '') }}">
+                                <a href="/edit-lookups/neighbouring-suburbs" class="nav-link ">
+                                    <span class="title">Neighbouring Suburbs</span>
+                                </a>
+                            </li>
                             <li class="nav-item  {{ (Request::is('edit-lookups/streets') ? 'active' : '') }}">
                                 <a href="/edit-lookups/streets" class="nav-link ">
                                     <span class="title">Streets</span>
