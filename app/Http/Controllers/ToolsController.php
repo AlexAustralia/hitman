@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ApplicationSet;
 use App\FranchiseeSet;
 use App\Role;
 use App\User;
@@ -130,5 +131,29 @@ class ToolsController extends Controller
         }
 
         return redirect('/')->with('success', 'Default Franchisee Settings has been updated successfully');
+    }
+
+    // Application Settings page
+    public function get_application_settings()
+    {
+        // Get all settings
+        $settings = ApplicationSet::all();
+
+        return view('tools.application-settings', compact('settings'));
+    }
+
+    // Save application settings
+    public function post_application_settings()
+    {
+        $input = Input::all();
+
+        foreach ($input['value'] as $key => $value){
+            $settings = ApplicationSet::find($key + 1);
+            $settings->value = $value;
+
+            $settings->save();
+        }
+
+        return redirect('/')->with('success', 'Application Settings has been updated successfully');
     }
 }

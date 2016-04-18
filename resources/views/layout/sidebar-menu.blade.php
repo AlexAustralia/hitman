@@ -64,8 +64,8 @@
                                     <span class="title">Change User Password</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
-                                <a href="javascript:;" class="nav-link nav-toggle">
+                            <li class="nav-item {{ (Request::is('tools/application-settings') ? 'active' : '') }}">
+                                <a href="/tools/application-settings" class="nav-link nav-toggle">
                                     <span class="title">Application Settings</span>
                                 </a>
                             </li>

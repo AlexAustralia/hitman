@@ -48,6 +48,10 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('tools/franchisee-settings', 'ToolsController@get_franchisee_settings');
             Route::post('tools/franchisee-settings', 'ToolsController@post_franchisee_settings');
 
+            // Application Settings module
+            Route::get('tools/application-settings', 'ToolsController@get_application_settings');
+            Route::post('tools/application-settings', 'ToolsController@post_application_settings');
+
             /*
              *  Edit Lookups section
              */
