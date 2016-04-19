@@ -15,10 +15,19 @@
 @stop
 
 @section('actions')
-        <li>
-            <a href="/tools/users/create">
-                <i class="icon-plus"></i> Create New User</a>
-        </li>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
+                <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="/tools/users/create">
+                        <i class="icon-plus"></i> Create New User</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 @stop
 
 @section('content')
@@ -26,12 +35,6 @@
         <div class="portlet-title">
             <div class="caption">
                 <i class="fa fa-users"></i>Users</div>
-            <div class="tools">
-                <a href="javascript:;" class="collapse"> </a>
-                <a href="#portlet-config" data-toggle="modal" class="config"> </a>
-                <a href="javascript:;" class="reload"> </a>
-                <a href="javascript:;" class="remove"> </a>
-            </div>
         </div>
 
         <div class="portlet-body">

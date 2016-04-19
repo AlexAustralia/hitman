@@ -24,13 +24,6 @@
             <div class="caption">
                 <i class="fa fa-user"></i>@if(isset($user)) Edit @else Create New @endif User
             </div>
-
-            <div class="tools">
-                <a href="javascript:;" class="collapse"> </a>
-                <a href="#portlet-config" data-toggle="modal" class="config"> </a>
-                <a href="javascript:;" class="reload"> </a>
-                <a href="javascript:;" class="remove"> </a>
-            </div>
         </div>
 
         <div class="portlet-body form">
@@ -94,7 +87,7 @@
                                         @if(isset($user))
                                             <option value="{{ $role->id }}" @if($role->id == $user->role_id) selected @endif >{{ $role->name }}</option>
                                         @else
-                                            <option value="{{ $role->id }}" @if($role->id == 4) selected @endif >{{ $role->name }}</option>
+                                            <option value="{{ $role->id }}" @if($role->id == 2) selected @endif >{{ $role->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
