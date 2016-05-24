@@ -30,6 +30,12 @@ Route::group(['middleware' => 'web'], function () {
             return view('app');
         });
 
+        /*
+         *  Client section
+         */
+
+        Route::get('clients', 'ClientController@index');
+
         // Here is the section restricted for all users apart from Administrator
         Route::group(['middleware' => 'admin'], function () {
 
