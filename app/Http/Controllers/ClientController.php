@@ -38,6 +38,20 @@ class ClientController extends Controller
         $clients = Client::select('name', 'surname', 'phone', 'mobile', 'client_address', 'email', 'id');
 
         return Datatables::of($clients)
+            ->filter(function ($query) use ($request) {
+                if ($request->has('phone')) {
+                    $query->where('phone', 'LIKE', "%{$request->get('phone')}%");
+                }
+                if ($request->has('name')) {
+                    $query->where('name', 'LIKE', "%{$request->get('name')}%");
+                }
+                if ($request->has('surname')) {
+                    $query->where('surname', 'LIKE', "%{$request->get('surname')}%");
+                }
+                if ($request->has('address')) {
+                    $query->where('client_address', 'LIKE', "%{$request->get('address')}%");
+                }
+            })
             ->edit_column('name', '<a href="/clients/edit/{{ $id }}"> {{ $surname }} {{ $name }}</a>')
             ->edit_column('phone', '{{ $phone }}')
             ->edit_column('mobile', '{{ $mobile }}')
@@ -47,7 +61,6 @@ class ClientController extends Controller
             ->remove_column('surname')
             ->make();
     }
-
 
     /**
      * Create new client
