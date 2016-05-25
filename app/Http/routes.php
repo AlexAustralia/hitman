@@ -30,16 +30,20 @@ Route::group(['middleware' => 'web'], function () {
             return view('app');
         });
 
-        /*
+        /**
          *  Client section
          */
 
         Route::get('clients', 'ClientController@index');
+        Route::get('clients/create', 'ClientController@create');
+        Route::get('clients/edit/{id}', 'ClientController@edit');
+        Route::post('clients/save', 'ClientController@save');
+        Route::get('clients/data', 'ClientController@data');
 
         // Here is the section restricted for all users apart from Administrator
         Route::group(['middleware' => 'admin'], function () {
 
-            /*
+            /**
              *  Tools section
              */
 
@@ -58,7 +62,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::get('tools/application-settings', 'ToolsController@get_application_settings');
             Route::post('tools/application-settings', 'ToolsController@post_application_settings');
 
-            /*
+            /**
              *  Edit Lookups section
              */
 

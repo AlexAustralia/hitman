@@ -2,6 +2,11 @@
 
 @section('title') Clients | @parent @stop
 
+@section('plugin-styles')
+    <link href="{{ asset('theme/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('theme/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+@stop
+
 @section('page-name') Clients @stop
 @section('page-description') Clients Management @stop
 @section('breadcrumb')
@@ -34,9 +39,49 @@
         </div>
 
         <div class="portlet-body">
-            <div class="table-scrollable">
-                TABLE
-            </div>
+
+                <table class="table table-striped table-hover" id="table">
+                    <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Phone</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            
         </div>
     </div>
 @endsection
+
+@section('plugin-scripts')
+    <script src="{{ asset('theme/global/scripts/datatable.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/global/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
+@stop
+
+@section('page-level-scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var oTable = $('#table').DataTable({
+                processing: true,
+                serverSide: true,
+                lengthMenu: [ 50, 100, 250 ],
+                ajax: {
+                    url: "{{ URL::to('clients/data') }}",
+                    data: function (d) {
+
+                    }
+                },
+            });
+
+
+        });
+    </script>
+
+@stop

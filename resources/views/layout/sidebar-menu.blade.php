@@ -17,7 +17,7 @@
                     <span class="title">Calendar</span>
                 </a>
             </li>
-            <li class="nav-item  {{ (Request::is('clients') ? 'active' : '') }}">
+            <li class="nav-item  {{ (Request::is('clients/*') ? 'active' : '') }}">
                 <a href="/clients" class="nav-link nav-toggle">
                     <i class="icon-user"></i>
                     <span class="title">Clients</span>
