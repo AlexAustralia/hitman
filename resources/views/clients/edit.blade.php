@@ -200,7 +200,7 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" class="form-control input-circle-right" placeholder="Enter Client Address if applicable" name="client_address" @if(isset($client)) value="{{ $client->client_address }}" @endif>
+                                <input type="text" class="form-control input-circle-right" id="client_address" placeholder="Enter Client Address if applicable" name="client_address" @if(isset($client)) value="{{ $client->client_address }}" @endif>
                                 <i class="fa"></i>
                             </div>
                         </div>
@@ -223,8 +223,17 @@
 @section('plugin-scripts')
     <script src="{{ asset('theme/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
+
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places" type="text/javascript"></script>
+    <script src="{{ asset('theme/global/plugins/jquery.geocomplete.js') }}" type="text/javascript"></script>
 @stop
 
 @section('page-level-scripts')
     <script src="{{ asset('theme/pages/scripts/client-form-validation.js') }}" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#client_address').geocomplete();
+        });
+    </script>
 @stop
