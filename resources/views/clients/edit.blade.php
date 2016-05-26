@@ -200,7 +200,7 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="text" class="form-control input-circle-right" placeholder="Enter Client Address if applicable" name="email" @if(isset($client)) value="{{ $client->client_address }}" @endif>
+                                <input type="text" class="form-control input-circle-right" placeholder="Enter Client Address if applicable" name="client_address" @if(isset($client)) value="{{ $client->client_address }}" @endif>
                                 <i class="fa"></i>
                             </div>
                         </div>
