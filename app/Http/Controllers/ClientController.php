@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Title;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -112,9 +113,14 @@ class ClientController extends Controller
         if (isset($input['id'])) {
             // Client exists
             $client = Client::find($input['id']);
+
+            if (is_null($client->date_cancel) && isset($input['previously_cancelled'])) $client->date_cancel = Carbon::now();
+            if (!is_null($client->date_cancel) && !isset($input['previously_cancelled'])) $client->date_cancel = null;
         } else {
             // New client
             $client = new Client();
+
+            $client->date_cancel = isset($input['previously_cancelled']) ? Carbon::now() : null;
         }
 
         // Save client data

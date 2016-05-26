@@ -109,6 +109,20 @@
                     </div>
 
                     <div class="form-group">
+                        <div class="col-md-4 col-md-offset-3">
+                            <div class="input-group">
+                                <div class="md-checkbox md-checkbox-inline">
+                                    <input type="checkbox" name="previously_cancelled" id="previously_cancelled" class="md-check" value="1" @if(!is_null($client->date_cancel)) checked @endif>
+                                    <label for="previously_cancelled">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span> Client Previously Cancelled a Job on the Day </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-md-3 control-label">Spouse Name</label>
 
                         <div class="col-md-4">
