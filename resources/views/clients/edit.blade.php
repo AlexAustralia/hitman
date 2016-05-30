@@ -112,7 +112,7 @@
                         <div class="col-md-4 col-md-offset-3">
                             <div class="input-group">
                                 <div class="md-checkbox md-checkbox-inline">
-                                    <input type="checkbox" name="previously_cancelled" id="previously_cancelled" class="md-check" value="1" @if(!is_null($client->date_cancel)) checked @endif>
+                                    <input type="checkbox" name="previously_cancelled" id="previously_cancelled" class="md-check" value="1" @if(isset($client) && !is_null($client->date_cancel)) checked @endif>
                                     <label for="previously_cancelled">
                                         <span></span>
                                         <span class="check"></span>
