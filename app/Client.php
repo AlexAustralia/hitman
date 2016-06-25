@@ -18,4 +18,14 @@ class Client extends Model
         'fax',
         'type'
     ];
+
+    /**
+     * Get Client's property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function getProperty()
+    {
+        return $this->hasMany('\App\Property');
+    }
 }

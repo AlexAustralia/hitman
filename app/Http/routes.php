@@ -40,6 +40,12 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('clients/save', 'ClientController@save');
         Route::get('clients/data', 'ClientController@data');
 
+        /**
+         *  Property section
+         */
+        Route::get('clients/property/{id}', 'PropertyController@index');
+
+
         // Here is the section restricted for all users apart from Administrator
         Route::group(['middleware' => 'admin'], function () {
 
