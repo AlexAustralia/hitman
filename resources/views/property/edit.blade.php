@@ -26,7 +26,7 @@
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-home"></i>@if(isset($property)) Property Details: ADDRESS @else Create Property @endif
+                <i class="fa fa-home"></i>@if(isset($property)) Property Details: {{ $property->address }} @else Create Property @endif
             </div>
         </div>
 
@@ -99,7 +99,7 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-pencil"></i>
                                 </span>
-                                <textarea class="form-control" rows="3" name="property_notes">@if(isset($property)) value="{{ $property->property_notes }}" @endif</textarea>
+                                <textarea class="form-control" rows="3" name="property_notes">@if(isset($property)) {{ $property->property_notes }} @endif</textarea>
                                 <i class="fa"></i>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                         <div class="col-md-4 col-md-offset-3">
                             <div class="input-group">
                                 <div class="md-checkbox md-checkbox-inline">
-                                    <input type="checkbox" name="occupant_is_client" id="occupant_is_client" class="md-check" value="1" @if(isset($property) && !is_null($property->occupant_is_client)) checked @endif>
+                                    <input type="checkbox" name="occupant_is_client" id="occupant_is_client" class="md-check" value="1" @if(isset($property) && ($property->occupant_is_client == 1)) checked @endif>
                                     <label for="occupant_is_client">
                                         <span></span>
                                         <span class="check"></span>
@@ -129,7 +129,8 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <select class="form-control input-circle-right occupant" name="occupant_title_id">
+                                <select class="form-control input-circle-right occupant" name="occupant_title_id"
+                                        @if(isset($property) && ($property->occupant_is_client == 1)) disabled @endif>
                                     <option value="0">No Titles</option>
                                     @foreach($titles as $title)
                                         <option value="{{ $title->id }}" @if(isset($property)) @if($title->id == $property->occupant_title_id) selected @endif @endif>{{ $title->name }}</option>
@@ -148,7 +149,8 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" class="form-control input-circle-right occupant" placeholder="Enter Occupant Name" name="occupant_name" @if(isset($property)) value="{{ $property->occupant_name }}" @endif>
+                                <input type="text" class="form-control input-circle-right occupant" placeholder="Enter Occupant Name" name="occupant_name" @if(isset($property)) value="{{ $property->occupant_name }}" @endif
+                                @if(isset($property) && ($property->occupant_is_client == 1)) disabled @endif>
                                 <i class="fa"></i>
                             </div>
                         </div>
@@ -162,7 +164,8 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-user"></i>
                                 </span>
-                                <input type="text" class="form-control input-circle-right occupant" placeholder="Enter Occupant Surname" name="occupant_surname" @if(isset($property)) value="{{ $property->occupant_surname }}" @endif>
+                                <input type="text" class="form-control input-circle-right occupant" placeholder="Enter Occupant Surname" name="occupant_surname" @if(isset($property)) value="{{ $property->occupant_surname }}" @endif
+                                @if(isset($property) && ($property->occupant_is_client == 1)) disabled @endif>
                                 <i class="fa"></i>
                             </div>
                         </div>
@@ -176,7 +179,8 @@
                                 <span class="input-group-addon input-circle-left">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input type="text" class="form-control input-circle-right occupant" placeholder="Enter Occupant's Phone Number" name="occupant_phone" @if(isset($property)) value="{{ $property->occupant_phone }}" @endif>
+                                <input type="text" class="form-control input-circle-right occupant" placeholder="Enter Occupant's Phone Number" name="occupant_phone" @if(isset($property)) value="{{ $property->occupant_phone }}" @endif
+                                @if(isset($property) && ($property->occupant_is_client == 1)) disabled @endif>
                                 <i class="fa"></i>
                             </div>
                         </div>

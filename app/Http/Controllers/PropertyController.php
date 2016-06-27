@@ -48,6 +48,23 @@ class PropertyController extends Controller
     }
 
     /**
+     * Edit client's property
+     *
+     * @param $id_c, $id_p
+     * @return view
+     */
+
+    public function edit($id)
+    {
+        // Get all titles
+        $titles = Title::all();
+        $property = Property::find($id);
+        $client = $property->getClient;
+
+        return view('property.edit', compact('titles', 'client', 'property'));
+    }
+
+    /**
      * Save created or edited client's property
      *
      * @param Request $request
@@ -63,7 +80,7 @@ class PropertyController extends Controller
         // Get all input data
         $input = $request->all();
 
-        $property = isset($input['id']) ? $property = Property::find($input['id']) : new Property();
+        $property = isset($input['id']) ? Property::find($input['id']) : new Property();
 
         // Save Property data
         $property->client_id = $id;

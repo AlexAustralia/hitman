@@ -1,8 +1,8 @@
 @extends('app')
 
-@section('title') Property List: {{ $client->name }} {{ $client->surname }} | @parent @stop
+@section('title') Property List of {{ $client->name }} {{ $client->surname }} | @parent @stop
 
-@section('page-name') Property List: {{ $client->name }} {{ $client->surname }} @stop
+@section('page-name') Property List of {{ $client->name }} {{ $client->surname }} @stop
 @section('page-description') Editing Client @stop
 @section('breadcrumb')
     <li>
@@ -38,7 +38,7 @@
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-home"></i>Property List: {{ $client->name }} {{ $client->surname }}
+                <i class="fa fa-home"></i>Property List of {{ $client->name }} {{ $client->surname }}
             </div>
         </div>
 
@@ -73,10 +73,20 @@
                             <tbody>
                             @foreach($property as $line)
                                 <tr>
-                                    <td>address</td>
-                                    <td>postcode</td>
-                                    <td>name</td>
-                                    <td>phone</td>
+                                    <td><a href="/clients/property/edit/{{ $line->id }}">{{ $line->address }}</td>
+                                    <td>{{ $line->postcode }}</td>
+                                    <td>@if($line->occupant_is_client)
+                                            {{ $client->name }} {{ $client->surname }}
+                                        @else
+                                            {{ $line->occupant_name }} {{ $line->occupant_surname }}
+                                        @endif
+                                    </td>
+                                    <td>@if($line->occupant_is_client)
+                                            {{ $client->phone }}
+                                        @else
+                                            {{ $line->occupant_phone }}
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

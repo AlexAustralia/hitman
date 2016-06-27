@@ -45,6 +45,7 @@ Route::group(['middleware' => 'web'], function () {
          */
         Route::get('clients/property/{id}', 'PropertyController@index');
         Route::get('clients/property/{id}/create', 'PropertyController@create');
+        Route::get('clients/property/edit/{id}', 'PropertyController@edit');
         Route::post('clients/property/{id}/save', 'PropertyController@save');
 
 
