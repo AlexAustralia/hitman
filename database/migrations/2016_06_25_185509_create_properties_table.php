@@ -16,9 +16,9 @@ class CreatePropertiesTable extends Migration
             $table->increments('id');
 
             $table->integer('client_id')->unsigned();
-            $table->integer('street_id')->unsigned()->nullable();
-            $table->string('street')->nullable();
-            $table->integer('suburb_id')->unsigned();
+            $table->string('address');
+            $table->string('suburb');
+            $table->string('postcode');
             $table->text('property_notes')->nullable();
             $table->boolean('occupant_is_client');
             $table->integer('occupant_title_id')->unsigned()->nullable();

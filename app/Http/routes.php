@@ -44,6 +44,8 @@ Route::group(['middleware' => 'web'], function () {
          *  Property section
          */
         Route::get('clients/property/{id}', 'PropertyController@index');
+        Route::get('clients/property/{id}/create', 'PropertyController@create');
+        Route::post('clients/property/{id}/save', 'PropertyController@save');
 
 
         // Here is the section restricted for all users apart from Administrator
